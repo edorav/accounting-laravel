@@ -1,0 +1,14 @@
+<div class="container-fluid">
+    <div class="row" *ngIf="houses">
+        <div class="col-md-3" *ngFor="let house of houses">
+            <app-house
+                [house]="house"
+            ></app-house>
+        </div>
+    </div>
+</div>
+
+<a [routerLink]="['/house']" class="btn btn-primary btn-add">
+    <i class="fa fa-plus"></i>
+</a>
+
