@@ -11,7 +11,7 @@ import { User } from '@app/user/user';
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
-  public error: boolean = false;
+  public error: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,12 +26,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  private submit(): void {
+  public submit(): void {
     if (this.loginForm.valid) {
-      this._userService.login(this.loginForm.value.email , this.loginForm.value.password).subscribe((user:User[]) => {
-          if(user){
+      this._userService.login(this.loginForm.value.email , this.loginForm.value.password).subscribe((user: User[]) => {
+          if (user) {
             this.router.navigate(['']);
-          }else{
+          } else {
             this.error = true;
           }
       });

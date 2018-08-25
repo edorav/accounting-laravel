@@ -19,6 +19,7 @@ class CreateUserHousesTable extends Migration
             $table->integer('house_id')->unsigned();
             $table->boolean('owner')->default(false);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')
                 ->references('id')

@@ -5,6 +5,8 @@ import { CostService } from '@app/cost/cost.service';
 import { Cost } from '@app/cost/cost';
 import { House } from '@app/house/house';
 import { HouseService } from '@app/house/house.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmComponent } from '@app/cross/component/confirm/confirm.component';
 
 @Component({
   selector: 'app-house-detail',
@@ -20,7 +22,8 @@ export class HouseDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private _houseService: HouseService,
     private _costService: CostService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -39,7 +42,7 @@ export class HouseDetailComponent implements OnInit {
   }
 
   public getCostList(): void {
-    this._costService.findByParentId(this.model._id).subscribe((costList: Cost[]) => {
+    this._costService.findByParentId(this.model.id).subscribe((costList: Cost[]) => {
       this.costList = costList;
     });
   }
@@ -51,13 +54,19 @@ export class HouseDetailComponent implements OnInit {
   }
 
   public submit() {
-    this._houseService.save(this.houseForm.value, this.model._id).subscribe((house: House) => {
+    this._houseService.save(this.houseForm.value, this.model.id).subscribe((house: House) => {
       this.model = house;
     });
   }
 
   public deleteCost(costId) {
-    console.log(costId);
+    this.modalService.open(ConfirmComponent).result.then((result) => {
+      if (result === 'confirm') {
+        this._costService.delete(costId).subscribe(() => {
+          this.getCostList();
+        });
+      }
+    });
   }
 
 }

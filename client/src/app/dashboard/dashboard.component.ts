@@ -8,7 +8,7 @@ import { House } from '../house/house';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  private houses: House[];
+  public houses: House[];
 
   constructor(
     private _houseService: HouseService

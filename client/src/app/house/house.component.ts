@@ -13,7 +13,7 @@ export class HouseComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.house);
+    //console.log(this.house);
   }
 
 }

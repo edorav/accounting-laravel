@@ -20,6 +20,7 @@ class CreateCostsTable extends Migration
             $table->date('date');
             $table->integer('house_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('house_id')
                 ->references('id')->on('houses')

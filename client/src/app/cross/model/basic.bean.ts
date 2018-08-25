@@ -1,7 +1,7 @@
 
 
 export abstract class BasicBean {
-  _id: string;
+  id: string;
   createdBy?: string;
   updatedBy?: string;
   createdAt: Date;
@@ -22,7 +22,7 @@ export abstract class BasicBean {
   }
 
   public isNew() {
-      return !this._id;
+      return !this.id;
   }
 
   private _fixDates() {

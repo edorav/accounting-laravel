@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Cost;
 
 class CostController extends Controller
 {
@@ -35,7 +36,14 @@ class CostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cost = new Cost;
+
+        $cost->name = $request->name;
+        $cost->amount = $request->amount;
+        $cost->date = $request->date;
+        $cost->house_id = $request->homeId;
+
+        $cost->save();
     }
 
     /**
@@ -47,6 +55,18 @@ class CostController extends Controller
     public function show($id)
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $houseId
+     * @return \Illuminate\Http\Response
+     */
+    public function showByHouseId($houseId)
+    {
+        $costs = Cost::where('house_id', $houseId)->get();
+        return response()->json($costs);
     }
 
     /**
@@ -80,6 +100,6 @@ class CostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Cost::destroy($id);
     }
 }

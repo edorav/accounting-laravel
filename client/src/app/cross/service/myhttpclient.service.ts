@@ -16,7 +16,7 @@ export abstract class MyHttpClientService<T> {
 
   public abstract getEndPoint();
 
-  getHttpOptions(){
+  getHttpOptions() {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export abstract class MyHttpClientService<T> {
 
   public get() {
     const url = this.absolutePath + this.getEndPoint();
-    return this.http.get(url,this.getHttpOptions())
+    return this.http.get(url, this.getHttpOptions())
       .pipe(
         tap( // Log the result or error
           data => data,
@@ -61,7 +61,7 @@ export abstract class MyHttpClientService<T> {
 
   public findById(id: string) {
     const url = this.absolutePath + this.getEndPoint();
-    return this.http.get(url + '/' + id,this.getHttpOptions())
+    return this.http.get(url + '/' + id, this.getHttpOptions())
       .pipe(
         tap( // Log the result or error
           data => data,
@@ -72,7 +72,7 @@ export abstract class MyHttpClientService<T> {
 
   public findByParentId(id: string) {
     const url = this.absolutePath + this.getEndPoint();
-    return this.http.get(url + '/parent/' + id,this.getHttpOptions())
+    return this.http.get(url + '/parent/' + id, this.getHttpOptions())
       .pipe(
         tap( // Log the result or error
           data => data,
@@ -86,7 +86,19 @@ export abstract class MyHttpClientService<T> {
     if (id) {
       url = url + '/' + id;
     }
-    return this.http.post(url, model,this.getHttpOptions())
+    return this.http.post(url, model, this.getHttpOptions())
+      .pipe(
+        tap( // Log the result or error
+          data => data,
+          error => error
+        )
+      );
+  }
+
+  public delete(id: string) {
+    const url = this.absolutePath + this.getEndPoint() + '/' + id;
+
+    return this.http.delete(url, this.getHttpOptions())
       .pipe(
         tap( // Log the result or error
           data => data,

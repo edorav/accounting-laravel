@@ -38,7 +38,7 @@ export class CostComponent implements OnInit {
 
   public submit() {
     this.costForm.value.date = this.costForm.value.date.year + '/' + this.costForm.value.date.month + '/' + this.costForm.value.date.day;
-    this._costService.save(this.costForm.value, this.model._id).subscribe((cost: Cost) => {
+    this._costService.save(this.costForm.value, this.model.id).subscribe((cost: Cost) => {
       this.addNewCost.emit(cost);
     });
   }

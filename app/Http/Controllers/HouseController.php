@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\House;
 
 class HouseController extends Controller
 {
@@ -14,7 +15,8 @@ class HouseController extends Controller
      */
     public function index()
     {
-        //
+        $houses = House::get();
+        return response()->json($houses);
     }
 
     /**
@@ -46,7 +48,8 @@ class HouseController extends Controller
      */
     public function show($id)
     {
-        //
+        $house = House::find($id);
+        return response()->json($house);
     }
 
     /**

@@ -1,5 +1,5 @@
-<div class="container-fluid" *ngIf="model" (submit)="submit()">
-    <form [formGroup]="houseForm" >
+<div class="container-fluid" *ngIf="model">
+    <form [formGroup]="houseForm" (submit)="submit()">
         <div class="form-group row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-10">
@@ -17,7 +17,7 @@
 
 <app-cost
     *ngIf="model"
-    [houseId]="model._id"
+    [houseId]="model.id"
     (addNewCost)="getCostList($event)"
 ></app-cost>
 
@@ -39,7 +39,7 @@
                     <td>{{cost.date | date: 'd/M/yyyy' }}</td>
                     <td>
                         <button class="btn btn-default"><i class="fa fa-pencil"></i></button>
-                        <button class="btn btn-danger ml-1" (click)=deleteCost(cost._id)><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-danger ml-1" (click)=deleteCost(cost.id)><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
             </tbody>

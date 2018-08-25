@@ -18,30 +18,27 @@ export class UserService extends MyHttpClientService<User> {
     authService: AuthService,
     router: Router
   ) {
-    super(http,authService,router);
+    super(http, authService, router);
   }
 
   public getEndPoint(): string {
     return 'user';
   }
 
-  public verifyToken(token: String): Observable<ApiResponse> {
-    return this.http.post(this.getEndPointUri() + 'verifyToken', { token: token }).pipe(map((res: ApiResponse) => {
+  public verifyToken(): Observable<User> {
+    return this.http.post(this.getEndPointUri() + 'verifyToken', {} , this.getHttpOptions()).pipe(map((res: User) => {
         return res;
     }));
   }
 
   /** GET heroes from the server */
-  public login ( username: String, password: String): Observable<User[]> {
+  public login ( email: String, password: String): Observable<User[]> {
 
-    return this.http.post<User[]>(this.getEndPointUri() + 'login', {username,password}, this.getHttpOptions())
+    return this.http.post<User[]>(this.getEndPointUri() + 'login', {email , password}, this.getHttpOptions())
       .pipe(
-        map((results: ApiResponse) => {
-          return results.data;
-        }),
         tap(data => {
-          if(data){
-            this.authService.setUser( data );
+          if (data) {
+            this.authService.setToken( JSON.stringify(data) );
           }
         }),
         catchError(this.handleError('userLogin', []))

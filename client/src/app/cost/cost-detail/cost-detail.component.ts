@@ -35,7 +35,7 @@ export class CostDetailComponent implements OnInit {
   }
 
   public submit() {
-    this._costService.save(this.costForm.value, this.model._id).subscribe((cost: Cost) => {
+    this._costService.save(this.costForm.value, this.model.id).subscribe((cost: Cost) => {
       this.model = cost;
     });
   }

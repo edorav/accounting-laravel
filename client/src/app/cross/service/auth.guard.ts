@@ -12,26 +12,23 @@ export class AuthenticationGuard implements CanActivate {
   constructor(
       private _router: Router,
       private _authService: AuthService,
-      private _userService : UserService
+      private _userService: UserService
   ) { }
 
   canActivate(): boolean {
-
-    let res: Promise<boolean>;
-    //resolve(true);
-    let token = this._authService.getToken();
-    if(token){
-      this._userService.verifyToken(token).subscribe((response: ApiResponse)=>{
-        if(response.data){
-          this._authService.setUser( response.data );
-        }else{
+    const token = this._authService.getToken();
+    if (token) {
+      this._userService.verifyToken().subscribe((response) => {
+        if (response) {
+          this._authService.setUser( JSON.stringify(response) );
+        } else {
           this._authService.destroySession();
           this._router.navigate(['/login']);
           return false;
         }
       });
       return true;
-    }else{
+    } else {
       this._authService.destroySession();
       this._router.navigate(['/login']);
       return false;
