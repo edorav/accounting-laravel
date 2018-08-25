@@ -17,4 +17,4 @@ export const environment = {
 export const config = {
   serverUrl : 'http://localhost:8000/api/',
   version: '1.0'
-}
+};

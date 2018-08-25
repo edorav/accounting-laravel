@@ -3,6 +3,6 @@ export const environment = {
 };
 
 export const config = {
-  serverUrl : 'http://localhost:3001/api/',
+  serverUrl : 'https://accounting-laravel.herokuapp.com',
   version: '1.0'
-}
+};
